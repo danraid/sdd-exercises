@@ -1,0 +1,14 @@
+{
+  "version": "atlas-overlay-1.2",
+  "requirements": [
+    {
+      "id": "REQ-006",
+      "name": "withdrawal remains terminal",
+      "invariant": "Replay of the original submission preserves withdrawn state.",
+      "tests": [
+        "test_req006_replay_preserves_withdrawal",
+        "test_req006_detects_shallow_replay_bug"
+      ]
+    }
+  ]
+}

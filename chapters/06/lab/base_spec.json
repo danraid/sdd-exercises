@@ -1,0 +1,30 @@
+{
+  "version": "teaching-base-1",
+  "requirements": [
+    {
+      "id": "LAB-001",
+      "invariant": "A new submission receives an identifier.",
+      "tests": ["test_lab001_create"]
+    },
+    {
+      "id": "LAB-002",
+      "invariant": "A matching replay returns the identifier; a conflicting payload is rejected without changing the record.",
+      "tests": ["test_lab002_replay_and_conflict"]
+    },
+    {
+      "id": "LAB-003",
+      "invariant": "A snapshot exposes the stored identifier and payload.",
+      "tests": ["test_lab003_snapshot"]
+    },
+    {
+      "id": "LAB-004",
+      "invariant": "A record can be marked reviewed.",
+      "tests": ["test_lab004_review"]
+    },
+    {
+      "id": "LAB-005",
+      "invariant": "Distinct new keys receive distinct identifiers in sequential use.",
+      "tests": ["test_lab005_distinct_ids"]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "name": "Request kind",
+      "invariant": "Only maintenance is accepted.",
+      "tests": ["test_req001_kind"]
+    },
+    {
+      "id": "REQ-002",
+      "name": "Idempotent submission",
+      "invariant": "Same-key replay preserves the record; a different kind conflicts.",
+      "tests": ["test_req002_replay", "test_req002_conflict"]
+    },
+    {
+      "id": "REQ-003",
+      "name": "Review transition",
+      "invariant": "A submitted record can move to reviewed.",
+      "tests": ["test_req003_transition"]
+    },
+    {
+      "id": "REQ-004",
+      "name": "Reviewer gate",
+      "invariant": "Review requires the reviewer flag.",
+      "tests": ["test_req004_reviewer"]
+    }
+  ]
+}

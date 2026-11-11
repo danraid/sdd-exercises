@@ -1,0 +1,36 @@
+{
+  "version": "1.2-proposed",
+  "scope": "One synthetic in-memory Atlas instance",
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "invariant": "Only permit and appointment kinds are accepted.",
+      "tests": ["test_req001_accepts_only_declared_request_kinds"]
+    },
+    {
+      "id": "REQ-002",
+      "invariant": "Matching keys and kinds retain identity; conflicts fail.",
+      "tests": ["test_req002_replays_and_rejects_conflict"]
+    },
+    {
+      "id": "REQ-003",
+      "invariant": "Only the next lifecycle state is permitted.",
+      "tests": ["test_req003_enforces_ordered_lifecycle"]
+    },
+    {
+      "id": "REQ-004",
+      "invariant": "Only the reviewer role advances state.",
+      "tests": ["test_req004_blocks_unauthorised_advancement"]
+    },
+    {
+      "id": "REQ-005",
+      "invariant": "A valid replay preserves and returns current state.",
+      "tests": ["test_req005_replay_preserves_state"]
+    },
+    {
+      "id": "REQ-006",
+      "invariant": "Keys are non-blank ASCII strings of at most 32 characters.",
+      "tests": ["test_req006_key_boundaries"]
+    }
+  ]
+}

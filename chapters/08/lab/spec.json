@@ -1,0 +1,15 @@
+{
+  "version": "1.2-lab",
+  "requirements": [
+    {
+      "id": "REQ-002",
+      "invariant": "A conflicting replay leaves stored state unchanged.",
+      "tests": ["test_req002_replays_and_rejects_conflict"]
+    },
+    {
+      "id": "REQ-006",
+      "invariant": "Idempotency keys are scoped to the supplied principal.",
+      "tests": ["test_req006_scopes_keys_to_principal"]
+    }
+  ]
+}

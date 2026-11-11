@@ -1,0 +1,20 @@
+{
+  "name": "Synthetic Atlas API",
+  "version": "1.1",
+  "test_class": "TestAtlasAcceptance",
+  "requirements": {
+    "REQ-001": [
+      "test_req001_declared_kinds"
+    ],
+    "REQ-002": [
+      "test_req002_replay_preserves_progress",
+      "test_req002_conflicting_replay_rejected"
+    ],
+    "REQ-003": [
+      "test_req003_ordered_lifecycle"
+    ],
+    "REQ-004": [
+      "test_req004_reviewer_only"
+    ]
+  }
+}
