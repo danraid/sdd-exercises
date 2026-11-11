@@ -1,0 +1,54 @@
+name: SDD companion laboratories - isolated chapter checks
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  labs:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        chapter: ['01','02','03','04','05','06','07','08','09','10','11','12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check chapter contents and syntax
+        env:
+          CHAPTER: ${{ matrix.chapter }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os, pathlib, ast, json
+          d=pathlib.Path('chapters')/os.environ['CHAPTER']
+          for name in ('README.md','laboratory.md','exercises.md','answers.md'):
+              assert (d/name).is_file(), f'missing {d/name}'
+          for f in (d/'lab').rglob('*.py'):
+              ast.parse(f.read_text(encoding='utf-8'),filename=str(f))
+          for f in (d/'lab').rglob('*.json'):
+              json.loads(f.read_text(encoding='utf-8'))
+          print('SDD_CHAPTER_ARTIFACTS_OK',d)
+          PY
+      - name: Execute isolated chapter tests where supplied
+        env:
+          CHAPTER: ${{ matrix.chapter }}
+        run: |
+          set -euo pipefail
+          cd "chapters/$CHAPTER/lab"
+          if [[ "$CHAPTER" == "06" ]]; then python extend.py; fi
+          if [[ "$CHAPTER" == "09" ]]; then python prepare.py; fi
+          if [[ "$CHAPTER" == "02" ]]; then python validate.py; fi
+          if [[ "$CHAPTER" == "04" ]]; then python validate.py; fi
+          if [[ "$CHAPTER" == "08" ]]; then
+            python -m unittest -v atlas_lab
+          elif [[ "$CHAPTER" == "11" ]]; then
+            python -m unittest -v test_delivery
+          elif compgen -G "test*.py" > /dev/null; then
+            python -m unittest discover -s . -p "test*.py" -v
+          else
+            echo "No standalone unittest module for chapter $CHAPTER; syntax check passed."
+          fi
